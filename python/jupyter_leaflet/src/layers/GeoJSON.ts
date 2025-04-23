@@ -50,10 +50,12 @@ export class LeafletGeoJSONView extends LeafletFeatureGroupView {
       onEachFeature: (feature, layer: GeoJSON) => {
         const mouseevent = (e: LeafletMouseEvent) => {
           if (e.type == 'mouseover') {
-            layer.setStyle(this.model.get('hover_style'));
-            layer.once('mouseout', () => {
-              this.obj.resetStyle(layer);
-            });
+            if ("setStyle" in layer) {
+              layer.setStyle(this.model.get('hover_style'));
+              layer.once('mouseout', () => {
+                this.obj.resetStyle(layer);
+              });
+            }
           }
           this.send({
             event: e.type,

@@ -66,6 +66,12 @@ export class LeafletMarkerClusterView extends LeafletLayerView {
       }
     );
     this.obj.addLayer(child_view.obj);
+
+    child_view.model.on('change:data', (model) => {
+      this.obj.clearLayers();
+      this.obj.addLayer(child_view.obj);
+    })
+
     return child_view;
   }
 

@@ -1,3 +1,5 @@
+## v0.20.0
+
 ## v0.19.2
 
 * fix(docs): GeomanDrawControl was not included in docs navigation by @iisakkirotko in https://github.com/jupyter-widgets/ipyleaflet/pull/1197

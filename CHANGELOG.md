@@ -1,5 +1,15 @@
 ## v0.20.0
 
+First release of "ipyleaflet-bis", which integreates a number of open PRs from the upstream
+ipyleaflet project. The merged PRs inlcude:
+
+* https://github.com/jupyter-widgets/ipyleaflet/pull/1251
+* https://github.com/jupyter-widgets/ipyleaflet/pull/1250
+* https://github.com/jupyter-widgets/ipyleaflet/pull/1249
+* https://github.com/jupyter-widgets/ipyleaflet/pull/1248
+* https://github.com/jupyter-widgets/ipyleaflet/pull/1247
+
+
 ## v0.19.2
 
 * fix(docs): GeomanDrawControl was not included in docs navigation by @iisakkirotko in https://github.com/jupyter-widgets/ipyleaflet/pull/1197

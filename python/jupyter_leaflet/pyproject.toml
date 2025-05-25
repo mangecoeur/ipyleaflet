@@ -7,7 +7,7 @@ requires = [
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyter-leaflet"
+name = "jupyter-leaflet-bis"
 description = "ipyleaflet extensions for JupyterLab and Jupyter Notebook"
 readme = "README.md"
 authors = [

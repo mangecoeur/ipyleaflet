@@ -200,7 +200,7 @@ class Layer(Widget, InteractMixin):
     subitems = Tuple().tag(trait=Instance(Widget), sync=True, **widget_serialization)
 
     pm_ignore = Bool(True).tag(sync=True, o=True)
-    snap_ignore = Bool(True).tag(sync=True, o=False)
+    snap_ignore = Bool(True).tag(sync=True, o=True)
 
     @validate("subitems")
     def _validate_subitems(self, proposal):

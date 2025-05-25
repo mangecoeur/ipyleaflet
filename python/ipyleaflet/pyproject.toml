@@ -5,7 +5,7 @@ requires = [
 build-backend = "hatchling.build"
 
 [project]
-name = "ipyleaflet"
+name = "ipyleaflet-bis"
 description = "A Jupyter widget for dynamic Leaflet maps"
 readme = "README.md"
 authors = [

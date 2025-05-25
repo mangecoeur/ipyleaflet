@@ -4,3 +4,12 @@ const crypto = require('crypto');
 const cryptoOrigCreateHash = crypto.createHash;
 crypto.createHash = (algorithm) =>
   cryptoOrigCreateHash(algorithm == 'md4' ? 'sha256' : algorithm);
+
+module.exports = {
+  // Add the devtool property to enable source maps
+  devtool: 'source-map',
+  // Disable minification
+  optimization: {
+    minimize: false,
+  },
+};

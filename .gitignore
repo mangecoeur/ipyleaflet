@@ -7,12 +7,18 @@ node_modules/
 *package-lock.json
 python/jupyter_leaflet/.yarn/
 ui-tests/.yarn/
+**/.yarn
 
 # Compiled javascript
 python/jupyter_leaflet/nbextension/
 python/jupyter_leaflet/labextension/
 python/jupyter_leaflet/dist/
 python/jupyter_leaflet/lib/
+
+python/jupyter_leaflet_bis/nbextension/
+python/jupyter_leaflet_bis/labextension/
+python/jupyter_leaflet_bis/dist/
+python/jupyter_leaflet_bis/lib/
 
 # OS X
 .DS_Store

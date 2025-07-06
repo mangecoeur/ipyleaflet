@@ -28,6 +28,7 @@ export class LeafletGeomanDrawControlModel extends LeafletControlModel {
       remove: true,
       cut: false,
       rotate: false,
+      custom_controls: [],
     };
   }
 }
@@ -639,6 +640,28 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
           this.map_view.obj.pm.removeControls();
           if (!this.model.get('hide_controls')) {
             this.map_view.obj.pm.addControls(this.controlOptions);
+
+            if (this.model.get('custom_controls')) {
+              const customControlOpts = this.model.get('custom_controls')
+              customControlOpts.forEach((control) => {
+                this.map_view.obj.pm.Toolbar.createCustomControl(
+                  {
+                    name: control['name'],
+                    title: control['title'],
+                    onClick: () => {
+                      control['event']
+                      this.send({
+                        event: control['event'],
+                        // data: ,
+                      })
+                    },
+                    context: control['context'],
+                    className: control['className'],
+                  }
+                )
+              })
+            }
+
           }
         });
       }

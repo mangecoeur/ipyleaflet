@@ -5134,9 +5134,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jupyter-leaflet-bis@workspace:.":
+"jupyter-leaflet@workspace:.":
   version: 0.0.0-use.local
-  resolution: "jupyter-leaflet-bis@workspace:."
+  resolution: "jupyter-leaflet@workspace:."
   dependencies:
     "@geoman-io/leaflet-geoman-free": ^2.18.0
     "@jupyter-widgets/base": ^2 || ^3 || ^4 || ^5 || ^6

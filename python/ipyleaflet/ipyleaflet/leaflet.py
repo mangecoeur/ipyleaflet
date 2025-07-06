@@ -2351,6 +2351,7 @@ class GeomanDrawControl(DrawControlBase):
     _model_name = Unicode("LeafletGeomanDrawControlModel").tag(sync=True)
 
     _click_callbacks = Instance(CallbackDispatcher, ())
+    _custom_control_callbacks = Instance(CallbackDispatcher, ())
 
     # Current mode & shape
     # valid values are: 'draw', 'edit', 'drag', 'remove', 'cut', 'rotate'
@@ -2382,10 +2383,9 @@ class GeomanDrawControl(DrawControlBase):
     # List of dictionaries with the following keys:
     # name: string - The name of the control
     # title: string - The title of the control (shown in the tooltip)
-    # callback: string - The callback function to be called when the control is clicked
     # context: object - The context in which the callback function is called
     # className: string - The CSS class name to be added to the control
-    custom_controls = List([]).tag(sync=True)
+    custom_controls = List(allow_none=True, default_value=None).tag(sync=True)
 
     limit_markers_to_count = Int(-1).tag(sync=True)
 
@@ -2409,6 +2409,10 @@ class GeomanDrawControl(DrawControlBase):
             self._draw_callbacks(self, action=action, geo_json=geo_json)
         elif content.get('event', '').startswith('click'):
             self._click_callbacks(self, **content)
+        elif content.get('event', '').startswith('custom_control:'):
+            button_event = content.get('event').split(':')[1]
+            self._custom_control_callbacks(self, button_event=button_event, **content)
+
 
     def on_draw(self, callback, remove=False):
         """Add a draw event listener.
@@ -2433,6 +2437,19 @@ class GeomanDrawControl(DrawControlBase):
             Whether to remove this callback or not. Defaults to False.
         """
         self._click_callbacks.register_callback(callback, remove=remove)
+
+
+    def on_click_custom_control(self, callback, remove=False):
+        """Add a click custom control event listener.
+
+        Parameters
+        ----------
+        callback : callable
+            Callback function that will be called on click event.
+        remove: boolean
+            Whether to remove this callback or not. Defaults to False.
+        """
+        self._custom_control_callbacks.register_callback(callback, remove=remove)
 
 
     def clear_text(self):

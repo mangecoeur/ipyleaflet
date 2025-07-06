@@ -47,10 +47,6 @@ module.exports = [
     devtool: 'source-map',
     externals,
     resolve,
-
-    optimization: {
-      minimize: false,
-    },
   },
   {
     // Bundle for the notebook containing the custom widget views and models
@@ -72,10 +68,6 @@ module.exports = [
     // 'module' is the magic requirejs dependency used to set the publicPath
     externals: [...externals, 'module'],
     resolve: resolve,
-
-    optimization: {
-      minimize: false,
-    },
   },
   {
     // Embeddable jupyter-leaflet bundle
@@ -101,9 +93,5 @@ module.exports = [
     // 'module' is the magic requirejs dependency used to set the publicPath
     externals: [...externals, 'module'],
     resolve: resolve,
-
-    optimization: {
-      minimize: false,
-    },
   },
 ];

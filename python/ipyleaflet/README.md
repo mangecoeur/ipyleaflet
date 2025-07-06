@@ -1,10 +1,4 @@
-# ipyleaflet-bis
-
-**USE OF THIS PACKAGE IS NOT RECOMMENDED**
-
-ipyleaflet-bis is a temporary fork of ipyleaflet, made to create a quick release including
-a number of open PRs against upstream. Once these PRs are upstreamed, this package will be
-unmaintained.
+# ipyleaflet
 
 [![Documentation](http://readthedocs.org/projects/ipyleaflet/badge/?version=latest)](https://ipyleaflet.readthedocs.io/en/latest/?badge=latest)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyter-widgets/ipyleaflet/stable?urlpath=lab%2Ftree%2Fexamples)

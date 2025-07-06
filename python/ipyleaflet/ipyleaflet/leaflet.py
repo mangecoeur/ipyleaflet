@@ -2381,6 +2381,15 @@ class GeomanDrawControl(DrawControlBase):
     cut = Bool(True).tag(sync=True)
     rotate = Bool(True).tag(sync=True)
 
+    # Custom controls
+    # List of dictionaries with the following keys:
+    # name: string - The name of the control
+    # title: string - The title of the control (shown in the tooltip)
+    # callback: string - The callback function to be called when the control is clicked
+    # context: object - The context in which the callback function is called
+    # className: string - The CSS class name to be added to the control
+    custom_controls = List([]).tag(sync=True)
+
     limit_markers_to_count = Int(-1).tag(sync=True)
 
     continuous_updates = Bool(True).tag(sync=True)

@@ -2,4 +2,4 @@
 # Distributed under the terms of the Modified BSD License.
 
 EXTENSION_VERSION = "^0.20"
-__version__ = "0.20.1"
+__version__ = "0.20.0"

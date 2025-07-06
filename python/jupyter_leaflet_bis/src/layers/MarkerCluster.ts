@@ -71,7 +71,6 @@ export class LeafletMarkerClusterView extends LeafletLayerView {
 
   create_obj() {
     const options = this.get_options();
-    this.obj = L.markerClusterGroup(options);
 
     // Intercept the creation of the cluster group to disable leaflet.pm
     // (so that GeomanDrawControl will not be able to edit it)

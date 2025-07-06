@@ -670,15 +670,16 @@ class Tooltip(UILayer):
         If true, the tooltip will follow the mouse instead of being fixed at the feature center.
         This option only applies when binding the tooltip to a Layer, not as stand-alone.
     """
+
     _view_name = Unicode("LeafletTooltipView").tag(sync=True)
     _model_name = Unicode("LeafletTooltipModel").tag(sync=True)
 
     location = List(allow_none=True, default_value=None).tag(sync=True)
 
     # Options
-    content = Unicode('').tag(sync=True, o=True)
+    content = Unicode("").tag(sync=True, o=True)
     offset = List(def_loc).tag(sync=True, o=True)
-    direction=Unicode('auto').tag(sync=True, o=True)
+    direction = Unicode("auto").tag(sync=True, o=True)
     permanent = Bool(False).tag(sync=True, o=True)
     sticky = Bool(False).tag(sync=True, o=True)
 
@@ -1165,7 +1166,7 @@ class VectorTileLayer(Layer):
     interactive: boolean, default False
         Whether the layer is interactive or not.
     feature_id: string, default None
-        Optional attribute name of a unique feature identifier. 
+        Optional attribute name of a unique feature identifier.
     """
 
     _view_name = Unicode("LeafletVectorTileLayerView").tag(sync=True)
@@ -1175,14 +1176,14 @@ class VectorTileLayer(Layer):
     attribution = Unicode().tag(sync=True, o=True)
 
     layer_styles = Union([Dict(), Unicode()]).tag(sync=True, o=True)
-    opacity = Float(1.0, min=0.0, max=1.0).tag(sync=True,o=True)
+    opacity = Float(1.0, min=0.0, max=1.0).tag(sync=True, o=True)
     visible = Bool(True).tag(sync=True, o=True)
     interactive = Bool(False).tag(sync=True, o=True)
     min_zoom = Int(0).tag(sync=True, o=True)
     max_zoom = Int(18).tag(sync=True, o=True)
     min_native_zoom = Int(default_value=None, allow_none=True).tag(sync=True, o=True)
     max_native_zoom = Int(default_value=None, allow_none=True).tag(sync=True, o=True)
-    renderer = Unicode('svg').tag(sync=True, o=True)
+    renderer = Unicode("svg").tag(sync=True, o=True)
     feature_id = Unicode(allow_none=True, default_value=None).tag(sync=True, o=True)
     feature_style = Dict().tag(sync=True)
 
@@ -1193,14 +1194,14 @@ class VectorTileLayer(Layer):
 
     @vector_tile_layer_styles.setter
     def vector_tile_layer_styles(self, value):
-        self.layer_styles = value     
+        self.layer_styles = value
 
     def __init__(self, **kwargs):
         super(VectorTileLayer, self).__init__(**kwargs)
         # Backwards compatibility: allow vector_tile_layer_styles as input:
         if "vector_tile_layer_styles" in kwargs:
             vtl_style = kwargs["vector_tile_layer_styles"]
-            if(vtl_style):
+            if vtl_style:
                 self.layer_styles = vtl_style
 
     def redraw(self):
@@ -1211,12 +1212,12 @@ class VectorTileLayer(Layer):
         """
         self.send({"msg": "redraw"})
 
-    def set_feature_style(self, id:Int, layer_style:Dict):
+    def set_feature_style(self, id: Int, layer_style: Dict):
         """Re-symbolize one feature.
 
-        Given the unique ID for a vector features, re-symbolizes that feature across all tiles it appears in. 
-        Reverts the effects of a previous set_feature_style call. get_feature_id must be defined for 
-        set_feature_style to work. 
+        Given the unique ID for a vector features, re-symbolizes that feature across all tiles it appears in.
+        Reverts the effects of a previous set_feature_style call. get_feature_id must be defined for
+        set_feature_style to work.
 
         Attributes
         ----------
@@ -1227,7 +1228,7 @@ class VectorTileLayer(Layer):
         """
         self.feature_style = {"id": id, "layerStyle": layer_style, "reset": False}
 
-    def reset_feature_style(self, id:Int):
+    def reset_feature_style(self, id: Int):
         """Reset feature style
 
         Reverts the style to the layer's deafult.
@@ -1238,6 +1239,7 @@ class VectorTileLayer(Layer):
             The unique identifier for the feature to re-symbolize
         """
         self.feature_style = {"id": id, "reset": True}
+
 
 class PMTilesLayer(Layer):
     """PMTilesLayer class, with Layer as parent class.
@@ -1521,10 +1523,12 @@ class MarkerCluster(Layer):
     disable_clustering_at_zoom = Int(18).tag(sync=True, o=True)
     max_cluster_radius = Int(80).tag(sync=True, o=True)
     polygon_options = Dict({}).tag(sync=True, o=True)
-    spider_leg_polyline_options = Dict({"weight": 1.5, "color": "#222", "opacity": 0.5}).tag(sync=True, o=True)
+    spider_leg_polyline_options = Dict(
+        {"weight": 1.5, "color": "#222", "opacity": 0.5}
+    ).tag(sync=True, o=True)
     spiderfy_distance_multiplier = Int(1).tag(sync=True, o=True)
 
-    
+
 class LayerGroup(Layer):
     """LayerGroup class.
 
@@ -2250,7 +2254,6 @@ class SplitMapControl(Control):
 
 
 class DrawControlBase(Control):
-
     # Leave empty to disable these
     circle = Dict().tag(sync=True)
     rectangle = Dict().tag(sync=True)
@@ -2322,9 +2325,9 @@ class DrawControl(DrawControlBase):
     # You can add Leaflet style options in the shapeOptions sub-dict
     # See https://github.com/Leaflet/Leaflet.draw#polylineoptions and
     # https://github.com/Leaflet/Leaflet.draw#polygonoptions
-    polyline = Dict({ 'shapeOptions': {} }).tag(sync=True)
-    polygon = Dict({ 'shapeOptions': {} }).tag(sync=True)
-    circlemarker = Dict({ 'shapeOptions': {} }).tag(sync=True)
+    polyline = Dict({"shapeOptions": {}}).tag(sync=True)
+    polygon = Dict({"shapeOptions": {}}).tag(sync=True)
+    circlemarker = Dict({"shapeOptions": {}}).tag(sync=True)
 
     last_draw = Dict({"type": "Feature", "geometry": None})
     last_action = Unicode()
@@ -2362,9 +2365,9 @@ class GeomanDrawControl(DrawControlBase):
 
     # Different drawing modes
     # See https://www.geoman.io/docs/modes/draw-mode
-    polyline = Dict({ 'pathOptions': {} }).tag(sync=True)
-    polygon = Dict({ 'pathOptions': {} }).tag(sync=True)
-    circlemarker = Dict({ 'pathOptions': {} }).tag(sync=True)
+    polyline = Dict({"pathOptions": {}}).tag(sync=True)
+    polygon = Dict({"pathOptions": {}}).tag(sync=True)
+    circlemarker = Dict({"pathOptions": {}}).tag(sync=True)
 
     # Hover style (applies for all drawing modes)
     hover_style = Dict().tag(sync=True)
@@ -2387,9 +2390,9 @@ class GeomanDrawControl(DrawControlBase):
         self.on_msg(self._handle_leaflet_event)
 
     def _handle_leaflet_event(self, _, content, buffers):
-        if content.get('event', '').startswith('pm:'):
-            action = content.get('event').split(':')[1]
-            geo_json = content.get('geo_json')
+        if content.get("event", "").startswith("pm:"):
+            action = content.get("event").split(":")[1]
+            geo_json = content.get("geo_json")
             if action == "vertexadded":
                 self._draw_callbacks(self, action=action, geo_json=geo_json)
                 return
@@ -2398,7 +2401,7 @@ class GeomanDrawControl(DrawControlBase):
             if not isinstance(geo_json, list):
                 geo_json = [geo_json]
             self._draw_callbacks(self, action=action, geo_json=geo_json)
-        elif content.get('event', '').startswith('click'):
+        elif content.get("event", "").startswith("click"):
             self._click_callbacks(self, **content)
 
     def on_draw(self, callback, remove=False):
@@ -2425,10 +2428,9 @@ class GeomanDrawControl(DrawControlBase):
         """
         self._click_callbacks.register_callback(callback, remove=remove)
 
-
     def clear_text(self):
         """Clear all text."""
-        self.send({'msg': 'clear_text'})
+        self.send({"msg": "clear_text"})
 
     def sync_data(self):
         """Force sync the data from the Geoman side to the data traitlet.
@@ -2450,20 +2452,17 @@ class DrawControlCompatibility(DrawControlBase):
 
     Python side compatibility layer for old DrawControls, using the new Geoman front-end but old Python API.
     """
-    
+
     _view_name = Unicode("LeafletGeomanDrawControlView").tag(sync=True)
     _model_name = Unicode("LeafletGeomanDrawControlModel").tag(sync=True)
 
     # Different drawing modes
     # See https://www.geoman.io/docs/modes/draw-mode
-    polyline = Dict({ 'shapeOptions': {} }).tag(sync=True)
-    polygon = Dict({ 'shapeOptions': {} }).tag(sync=True)
-    circlemarker = Dict({ 'shapeOptions': {} }).tag(sync=True)
+    polyline = Dict({"shapeOptions": {}}).tag(sync=True)
+    polygon = Dict({"shapeOptions": {}}).tag(sync=True)
+    circlemarker = Dict({"shapeOptions": {}}).tag(sync=True)
 
-    last_draw = Dict({
-        'type': 'Feature',
-        'geometry': None
-    })
+    last_draw = Dict({"type": "Feature", "geometry": None})
     last_action = Unicode()
 
     def __init__(self, **kwargs):
@@ -2471,9 +2470,9 @@ class DrawControlCompatibility(DrawControlBase):
         self.on_msg(self._handle_leaflet_event)
 
     def _handle_leaflet_event(self, _, content, buffers):
-        if content.get('event', '').startswith('pm:'):
-            action = content.get('event').split(':')[1]
-            geo_json = content.get('geo_json')
+        if content.get("event", "").startswith("pm:"):
+            action = content.get("event").split(":")[1]
+            geo_json = content.get("geo_json")
             # We remove vertexadded events, since they were not available through leaflet-draw
             if action == "vertexadded":
                 return

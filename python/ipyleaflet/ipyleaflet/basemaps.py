@@ -11,4 +11,5 @@ Examples:
 >>> from ipyleaflet.basemaps import basemaps
 >>> basemaps.OpenStreetMap.Mapnik
 """
+
 import xyzservices.providers as basemaps  # noqa

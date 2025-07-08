@@ -399,7 +399,9 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
     this.map_view.obj.off('pm:rotateend');
     this.map_view.obj.off('moveend');
     this.model.off('msg:custom');
+    this.model.off('msg:sync_data');
     this.model.off('change:data');
+    this.model.off('change:current_mode');
     this.map_view.obj.pm.removeControls();
     this.map_view.obj.removeLayer(this.feature_group);
     return this;

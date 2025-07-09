@@ -190,8 +190,6 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
         });
         if (continuousUpdate) {
           this.layers_to_data();
-          // TODO this is called anyway in layers to data?
-          // this.model.save_changes();
         }
       }
     );
@@ -220,7 +218,6 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
         });
         if (continuousUpdate) {
           this.layers_to_data();
-          this.model.save_changes();
         }
       }
     );
@@ -229,7 +226,6 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
       this.event_to_json('pm:rotateend', eventLayer);
       if (continuousUpdate) {
         this.layers_to_data();
-        this.model.save_changes();
       }
     });
     // add listeners for syncing modes
@@ -401,11 +397,13 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
     this.map_view.obj.off('pm:remove');
     this.map_view.obj.off('pm:cut');
     this.map_view.obj.off('pm:rotateend');
-    this.map_view.obj.off('moveend');
+
     this.model.off('msg:custom');
     this.model.off('change:data');
-    this.map_view.obj.pm.removeControls();
+    this.model.off('change:current_mode');
     this.map_view.obj.removeLayer(this.feature_group);
+    this.map_view.obj.pm.removeControls();
+
     return this;
   }
 
@@ -639,30 +637,31 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
 
           this.map_view.obj.pm.removeControls();
           if (!this.model.get('hide_controls')) {
-            this.map_view.obj.pm.addControls(this.controlOptions);
-
-            if (this.model.get('custom_controls')) {
-              const customControlOpts = this.model.get('custom_controls')
-              customControlOpts.forEach((control) => {
-                this.map_view.obj.pm.Toolbar.createCustomControl(
-                  {
-                    name: control['name'],
-                    title: control['title'],
-                    onClick: () => {
-                      control['event']
-                      this.send({
-                        event: control['event'],
-                        // data: ,
-                      })
-                    },
-                    context: control['context'],
-                    className: control['className'],
-                  }
-                )
-              })
-            }
-
+            this.setupDrawControls();
           }
+        });
+      }
+    }
+  }
+
+  private setupDrawControls() {
+    this.map_view.obj.pm.addControls(this.controlOptions);
+
+    const customControlOpts = this.model.get('custom_controls');
+    if (customControlOpts) {
+      for (const control of customControlOpts) {
+        this.map_view.obj.pm.Toolbar.createCustomControl({
+          name: control['name'],
+          title: control['title'],
+          toggle: false,
+          afterClick: () => {
+            this.send({
+              event: "custom_control:" + control['event'],
+              context: ('context' in control ? control['context'] : null),
+            });
+          },
+          className: control['className'],
+          block: control['block'],
         });
       }
     }
@@ -676,7 +675,9 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
     this.setControlOptions();
     this.map_view.obj.pm.removeControls();
     if (!this.model.get('hide_controls')) {
-      this.map_view.obj.pm.addControls(this.controlOptions);
+      // this.map_view.obj.pm.addControls(this.controlOptions);
+      this.setupDrawControls()
+
     }
     return this;
   }
@@ -687,7 +688,8 @@ export class LeafletGeomanDrawControlView extends LeafletControlView {
 
   addTo(map: Map) {
     if (!this.model.get('hide_controls')) {
-      map.pm.addControls(this.controlOptions);
+      this.setupDrawControls()
+      // map.pm.addControls(this.controlOptions);
     }
     return this;
   }
